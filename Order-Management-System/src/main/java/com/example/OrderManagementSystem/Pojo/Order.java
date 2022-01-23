@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -41,9 +42,16 @@ public class Order {
 	    private OrderStatus orderStatus;
 	   
 	    
-	    @OneToMany(targetEntity=MenuItem.class)
+	  
+	    
+	    @ManyToMany
+	    @JoinTable(
+	    		  name = "order_menuItem", 
+	    		  joinColumns = @JoinColumn(name = "order_fkid"), 
+	    		  inverseJoinColumns = @JoinColumn(name = "menuitem_fkid"))
+	  
 	   
-	    private List<MenuItem> items =new ArrayList<>() ;
+	    private List<MenuItem> mitems;
 	   
 	    
 	    //private DeliveryInfo deliveryInfo;
@@ -77,11 +85,12 @@ public class Order {
 		public void setOrderStatus(OrderStatus orderStatus) {
 			this.orderStatus = orderStatus;
 		}
-		public List<MenuItem> getItems() {
-			return items;
+		
+		public List<MenuItem> getMitems() {
+			return mitems;
 		}
-		public void setItems(List<MenuItem> items) {
-			this.items = items;
+		public void setMitems(List<MenuItem> mitems) {
+			this.mitems = mitems;
 		}
 		/*public DeliveryInfo getDeliveryInfo() {
 			return deliveryInfo;

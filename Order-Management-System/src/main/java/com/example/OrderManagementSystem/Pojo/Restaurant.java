@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -23,7 +26,13 @@ public class Restaurant {
 	@OneToOne(mappedBy="restaurant")
 	private Location location;
 	
-	@OneToMany(mappedBy = "mrestaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+	//@OneToMany(mappedBy = "mrestaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+	 @ManyToMany
+	    @JoinTable(
+	    		  name = "restaurant_menu", 
+	    		  joinColumns = @JoinColumn(name = "rastaurant_fkid"), 
+	    		  inverseJoinColumns = @JoinColumn(name = "menu_fkid"))
+	   
     private List<Menu> menu;
 
 	public List<Menu> getMenu() {

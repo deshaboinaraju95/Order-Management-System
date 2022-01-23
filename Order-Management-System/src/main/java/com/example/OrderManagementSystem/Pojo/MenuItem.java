@@ -27,16 +27,12 @@ public class MenuItem {
     private String imageUrl;
 
     private Double price;
-  //  @OneToMany(mappedBy = "items",targetEntity=Order.class, cascade = CascadeType.ALL,  fetch = FetchType.EAGER)
-    @ManyToOne(targetEntity=Order.class)
-    @JoinColumn(name="order_fkId")
-    private Order morder;
+   
+    @ManyToMany( mappedBy = "mitems",targetEntity=Order.class)
+    private List<Order> morder;
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "menu_fkid")
-    private Menu menu;
-
+    @ManyToMany(mappedBy = "items")
+    private List<Menu> menu;
     public MenuItem(@JsonProperty("menuItemid") Long id, @JsonProperty("name") String name, @JsonProperty("info") String info,
                     @JsonProperty("imageUrl") String imageUrl, @JsonProperty("price") Double price) {
         this.menuItemid= menuItemid;
@@ -97,25 +93,30 @@ public class MenuItem {
 	}
 
 
-	public Menu getMenu() {
+	
+
+
+	
+
+
+	public List<Menu> getMenu() {
 		return menu;
 	}
 
 
-	public void setMenu(Menu menu) {
+	public void setMenu(List<Menu> menu) {
 		this.menu = menu;
 	}
 
 
 	
 
-
-	public Order getMorder() {
+	public List<Order> getMorder() {
 		return morder;
 	}
 
 
-	public void setMorder(Order morder) {
+	public void setMorder(List<Order> morder) {
 		this.morder = morder;
 	}
 
