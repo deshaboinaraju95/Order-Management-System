@@ -25,6 +25,48 @@ public class DistanceResponse {
 		this.latitude = latitude;
 		this.logitude = logitude;
 	}
+	
+	
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public Double getLatitude() {
+		return latitude;
+	}
+
+
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
+	}
+
+
+	public Double getLogitude() {
+		return logitude;
+	}
+
+
+	public void setLogitude(Double logitude) {
+		this.logitude = logitude;
+	}
+
+
 	@Override
 	public String toString() {
 		return "DistanceResponse [id=" + id + ", name=" + name + ", latitude=" + latitude + ", logitude=" + logitude
