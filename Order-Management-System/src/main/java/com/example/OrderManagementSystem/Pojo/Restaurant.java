@@ -26,6 +26,9 @@ public class Restaurant {
 	@OneToOne(mappedBy="restaurant")
 	private Location location;
 	
+	private Double minimumBudget;
+	
+	
 	//@OneToMany(mappedBy = "mrestaurant", cascade = CascadeType.ALL, orphanRemoval = true)
 	 @ManyToMany
 	    @JoinTable(

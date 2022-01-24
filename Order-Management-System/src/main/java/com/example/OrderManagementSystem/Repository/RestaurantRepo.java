@@ -41,4 +41,9 @@ public interface RestaurantRepo extends JpaRepository<Restaurant, Long> {
 	
 	List<DistanceResponse> searchByDistance(String val);
 
+
+	@Query("SELECT DISTINCT new com.example.OrderManagementSystem.Dto.Response(r.restaurantId,r.restaurantName) from Restaurant r where r.minimumBudget< ?1 or r.minimumBudget=  ?1 ORDER BY r.minimumBudget") 
+	
+	List<Response> searchByBudget(Double d);
+
 }
