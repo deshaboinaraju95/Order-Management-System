@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.example.OrderManagementSystem.Dto.DistanceResponse;
 import com.example.OrderManagementSystem.Dto.Response;
 import com.example.OrderManagementSystem.Pojo.Restaurant;
 import com.example.OrderManagementSystem.Repository.RestaurantRepo;
@@ -18,14 +19,22 @@ public class OrderService {
 
 	public List<Response> search(String col, String val) {
 
-		/*
-		 * if(col.equalsIgnoreCase("location")) { restaurantrepo.searchByLocation(val);
-		 * } else if(col.equalsIgnoreCase("distance")) {
-		 * restaurantrepo.searchByDistance(val); }
-		 * 
-		 * 
-		 * 
-		 */if (col.equalsIgnoreCase("cuisine")) {
+	
+		    if(col.equalsIgnoreCase("distance")) {
+		 List<DistanceResponse> searchByDistance = restaurantrepo.searchByDistance(val); 
+		 
+		 for(DistanceResponse r: searchByDistance)
+			
+			 
+			 
+			 
+			 System.out.println(r);
+		    }
+		
+		    else if(col.equalsIgnoreCase("location")) { 
+			 return restaurantrepo.searchByLocation(val);
+		 } 
+		if (col.equalsIgnoreCase("cuisine")) {
 
 			List<Response> searchByCuisine = restaurantrepo.searchByCuisine(val);
 

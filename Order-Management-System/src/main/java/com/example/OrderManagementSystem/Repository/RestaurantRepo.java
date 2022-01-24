@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.example.OrderManagementSystem.Dto.DistanceResponse;
 import com.example.OrderManagementSystem.Dto.Response;
 import com.example.OrderManagementSystem.Pojo.Restaurant;
 
@@ -19,11 +20,25 @@ public interface RestaurantRepo extends JpaRepository<Restaurant, Long> {
                                                                                                                                                                  
      
 
-	@Query("SELECT DISTINCT new com.example.OrderManagementSystem.Dto.Response(r.restaurantId,r.restaurantName) from Restaurant r INNER JOIN r.menu as i where UPPER(i.type) LIKE UPPER('?1%')") 
+	@Query("SELECT DISTINCT new com.example.OrderManagementSystem.Dto.Response(r.restaurantId,r.restaurantName) from Restaurant r INNER JOIN r.menu as i where  i.type like ?1%")  //UPPER(i.type) LIKE UPPER('?1%')
 	
 	List<Response> searchByMenu(String val);
 	
-	@Query("SELECT DISTINCT new com.example.OrderManagementSystem.Dto.Response(r.restaurantId,r.restaurantName) from Restaurant r where UPPER (r.restaurantName) LIKE UPPER('?1%') ") 
+	@Query("SELECT DISTINCT new com.example.OrderManagementSystem.Dto.Response(r.restaurantId,r.restaurantName) from Restaurant r where r.restaurantName LIKE ?1%") 
 	List<Response> searchByName(String val);
+	               
+
+	@Query("SELECT DISTINCT new com.example.OrderManagementSystem.Dto.Response(r.restaurantId,r.restaurantName) from Restaurant r INNER JOIN r.location as l where l.address LIKE  %?1%  or l.city LIKE %?1% or l.state LIKE %?1%") 
+	
+	List<Response> searchByLocation(String val);
+
+
+
+	
+
+
+	@Query("SELECT DISTINCT new com.example.OrderManagementSystem.Dto.DistanceResponse(r.restaurantId,r.restaurantName,l.latitude,l.logitude) from Restaurant r INNER JOIN r.location as l ") 
+	
+	List<DistanceResponse> searchByDistance(String val);
 
 }
