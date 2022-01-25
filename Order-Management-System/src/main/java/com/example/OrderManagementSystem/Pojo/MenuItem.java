@@ -28,19 +28,13 @@ public class MenuItem {
 
     private Double price;
    
-    @ManyToMany( mappedBy = "mitems",targetEntity=Order.class)
-    private List<Order> morder;
+    @ManyToMany( mappedBy = "mitems")
+    private List<Order> morder ;
 
+    
     @ManyToMany(mappedBy = "items")
     private List<Menu> menu;
-    public MenuItem(@JsonProperty("menuItemid") Long id, @JsonProperty("name") String name, @JsonProperty("info") String info,
-                    @JsonProperty("imageUrl") String imageUrl, @JsonProperty("price") Double price) {
-        this.menuItemid= menuItemid;
-        this.name = name;
-        this.info = info;
-        this.imageUrl = imageUrl;
-        this.price = price;
-    }
+    
     
 
 	public Long getMenuItemid() {
@@ -120,6 +114,8 @@ public class MenuItem {
 		this.morder = morder;
 	}
 
+
+	
 
 	@Override
     public String toString() {

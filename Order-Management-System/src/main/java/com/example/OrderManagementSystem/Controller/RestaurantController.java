@@ -10,14 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.OrderManagementSystem.Dto.MenuItemDto;
 import com.example.OrderManagementSystem.Dto.Response;
+import com.example.OrderManagementSystem.Pojo.MenuItem;
 import com.example.OrderManagementSystem.Pojo.Restaurant;
 import com.example.OrderManagementSystem.Service.OrderService;
+import com.example.OrderManagementSystem.Service.RestaurantService;
 
 @RestController
-public class OrderController {
+public class RestaurantController {
 	@Autowired
-	private  OrderService orderService ;
+	private  RestaurantService restaurantService ;
 	
 	@GetMapping("search/{col}/{val}")
 	
@@ -26,13 +29,19 @@ public class OrderController {
 	    @PathVariable(value="col") String col,@PathVariable(value="val") String val)
 	{
 		
-		 List<Response> restaurant = orderService.search(col,val);
-	return new ResponseEntity<>(restaurant,HttpStatus.OK) ;
-		 
-		 
-		 
+		 List<Response> restaurant = restaurantService.search(col,val);
+	return new ResponseEntity<>(restaurant,HttpStatus.OK) ;	 
 	}
 	
+	@GetMapping("getmenuitem/{resturentId}/{menuItemId}")
 	
+	public   ResponseEntity<List<MenuItemDto>> FindRestarentItem(
+		    @PathVariable(value="resturentId") Long resturentId,@PathVariable(value="menuItemId") Long menuItemId)
+		      {
+			
+			 List<MenuItemDto> menuItem = restaurantService.FindMenuItem(resturentId,menuItemId);
+		return new ResponseEntity<>(menuItem,HttpStatus.OK) ;	 
+		}
+		
 
 }

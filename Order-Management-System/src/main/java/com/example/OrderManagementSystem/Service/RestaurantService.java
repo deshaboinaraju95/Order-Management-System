@@ -10,15 +10,20 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.example.OrderManagementSystem.Dto.DistanceResponse;
+import com.example.OrderManagementSystem.Dto.MenuItemDto;
 import com.example.OrderManagementSystem.Dto.Response;
+import com.example.OrderManagementSystem.Pojo.MenuItem;
 import com.example.OrderManagementSystem.Pojo.Restaurant;
+import com.example.OrderManagementSystem.Repository.MenuItemRepository;
 import com.example.OrderManagementSystem.Repository.RestaurantRepo;
 
 @Service
-public class OrderService {
+public class RestaurantService {
 
 	@Autowired
 	private RestaurantRepo restaurantrepo;
+	@Autowired
+	private MenuItemRepository menuItemRepository;
 
 	public List<Response> search(String col, String val) {
 
@@ -32,7 +37,7 @@ public class OrderService {
 
 			for (DistanceResponse r : searchByDistance) {
 
-				double distFrom = OrderService.distFrom(lot, log, r.getLatitude(), r.getLogitude());
+				double distFrom = RestaurantService.distFrom(lot, log, r.getLatitude(), r.getLogitude());
 				hm.put(new Response(r.getId(), r.getName()), distFrom);
 				System.out.println(distFrom + "" + r.getName());
 
@@ -76,6 +81,11 @@ public class OrderService {
 		double dist = (earthRadius * c);
 
 		return dist; // Math.round(dist*100) / 100.0;
+	}
+
+	public List<MenuItemDto> FindMenuItem(Long resturentId, Long menuItemId) {
+		
+		return menuItemRepository.FindMenuItems(resturentId,menuItemId);
 	}
 
 }

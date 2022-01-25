@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,12 +19,14 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 
 @Entity
 @Table(name="orders")
+@EntityListeners(AuditingEntityListener.class)
 public class Order {
 	
 	
@@ -44,7 +47,10 @@ public class Order {
 	    
 	  
 	    
-	    @ManyToMany
+	    @ManyToMany(cascade = {
+	            CascadeType.PERSIST, 
+	            CascadeType.MERGE
+	        })
 	    @JoinTable(
 	    		  name = "order_menuItem", 
 	    		  joinColumns = @JoinColumn(name = "order_fkid"), 
