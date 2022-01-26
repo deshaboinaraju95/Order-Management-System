@@ -58,10 +58,10 @@ public class OrderService {
 		order.setUser(restTemplate.getForObject(
 					"http://localhost:8080/getuser/" + orderdto.getUserId() ,
 					User.class));
-		order.setMitems(menuItem);
+	   order.setMitems(menuItem);
 		
 
-		orderRepo.saveAndFlush(order);
+		orderRepo.save(order);
 		
 		
 		return "Done OK";

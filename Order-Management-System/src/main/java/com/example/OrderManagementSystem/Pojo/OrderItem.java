@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @NoArgsConstructor
-public class MenuItem {
+public class OrderItem {
 
     @Id
     @GeneratedValue
@@ -27,10 +27,10 @@ public class MenuItem {
     private String imageUrl;
 
     private Double price;
-   /*
+   
     @ManyToMany( mappedBy = "mitems",cascade=CascadeType.REMOVE)
     private List<Order> morder ;
-*/
+
     
     @ManyToMany(mappedBy = "items")
     private List<Menu> menu;

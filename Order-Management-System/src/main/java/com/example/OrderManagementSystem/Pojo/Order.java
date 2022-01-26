@@ -7,7 +7,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -31,7 +33,7 @@ public class Order {
 	
 	
 	 @Id
-	 @GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	    private Long orderid;
 
 	    @ManyToOne
@@ -48,9 +50,10 @@ public class Order {
 	  
 	    
 	    @ManyToMany(cascade = {
-	            CascadeType.PERSIST, 
-	            CascadeType.MERGE
-	        })
+	            CascadeType.MERGE,
+	            CascadeType.PERSIST
+	     
+	        },fetch = FetchType.EAGER)
 	    @JoinTable(
 	    		  name = "order_menuItem", 
 	    		  joinColumns = @JoinColumn(name = "order_fkid"), 
